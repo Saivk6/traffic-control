@@ -1,0 +1,175 @@
+import pygame
+from pygame.locals import *
+import time
+
+pygame.init()
+
+#screen of size 800 and 600 pixels
+screen = pygame.display.set_mode([800,600])
+
+WHITE=(255,255,255)
+red=(255,0,0)
+green=(0,255,0)
+orange=(255,165,0)
+#Fill screen with white color
+screen.fill((255,255, 255))
+
+#Rectangles for road
+pygame.draw.rect(screen, (0,0,0), Rect((300,0), (200,600)))
+pygame.draw.rect(screen, (0,0,0), Rect((0,200), (800,200)))
+
+
+Running=1
+while Running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            Running=0
+            
+            break
+
+
+
+    #Rectangles for signals
+    #r=red, o=orange, g=green
+    def top_right(r,o,g):
+        #top right
+        pygame.draw.rect(screen, (0,0,0), Rect((510,70), (40,120)))
+        if r==1:
+            pygame.draw.circle(screen, red, (530,90), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (530,90), 15, 0)
+        if o==1:
+            pygame.draw.circle(screen, orange, (530,130), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (530,130), 15, 0)
+        if g==1:
+            pygame.draw.circle(screen, green, (530,170), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (530,170), 15, 0)
+        pygame.display.update()
+        
+    def bottom_left(r,o,g):
+        #bottom left
+        pygame.draw.rect(screen, (0,0,0), Rect((250,410), (40,120)))
+        if r==1:
+            pygame.draw.circle(screen, red, (270,430), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (270,430), 15, 0)
+        if o==1:
+            pygame.draw.circle(screen, orange, (270,470), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (270,470), 15, 0)
+        if g==1:
+            pygame.draw.circle(screen, green, (270,510), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (270,510), 15, 0)
+        pygame.display.update()
+        
+    def top_left(r,o,g):
+        #top left
+        pygame.draw.rect(screen, (0,0,0), Rect((170,150), (120,40)))
+        if r==1:
+            pygame.draw.circle(screen, red, (190,170), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (190,170), 15, 0)
+        if o==1:
+            pygame.draw.circle(screen, orange, (230,170), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (230,170), 15, 0)
+        if g==1:
+            pygame.draw.circle(screen, green, (270,170), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (270,170), 15, 0)
+        pygame.display.update()
+        
+    def bottom_right(r,o,g):
+        #bottom right
+        pygame.draw.rect(screen, (0,0,0), Rect((510,410), (120,40)))
+        if r==1:
+            pygame.draw.circle(screen, red, (530,430), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (530,430), 15, 0)
+        if o==1:
+            pygame.draw.circle(screen, orange, (570,430), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (570,430), 15, 0)
+        if g==1:
+            pygame.draw.circle(screen, green, (610,430), 15, 0)
+        else:
+            pygame.draw.circle(screen, WHITE, (610,430), 15, 0)
+        pygame.display.update()
+
+
+    #change the x value in time.sleep(x) to change the delay between each signal change
+    #tr=top right, tl= top left,'bl'=bottom left', 'br'=bottom right
+    delay1=10    #Green to orange
+    delay2=3      #Orange to red
+
+    #Loop through each signalling pole and call the functions
+    for i in ['tr','tl','bl','br']:
+        if i=='tr':
+            top_right(0,0,1)
+            top_left(1,0,0)
+            bottom_left(1,0,0)
+            bottom_right(1,0,0)
+            
+            time.sleep(delay1)
+            
+            top_right(0,1,0)
+            top_left(1,0,0)
+            bottom_left(1,0,0)
+            bottom_right(1,0,0)
+            
+            time.sleep(delay2)
+            
+        if i=='tl':
+            top_right(1,0,0)
+            top_left(0,0,1)
+            bottom_left(1,0,0)
+            bottom_right(1,0,0)
+            
+            time.sleep(delay1)
+            
+            top_right(1,0,0)
+            top_left(0,1,0)
+            bottom_left(1,0,0)
+            bottom_right(1,0,0)
+            
+            time.sleep(delay2)
+            
+        if i=='bl':
+            top_right(1,0,0)
+            top_left(1,0,0)
+            bottom_left(0,0,1)
+            bottom_right(1,0,0)
+            
+            time.sleep(delay1)
+            
+            top_right(1,0,0)
+            top_left(1,0,0)
+            bottom_left(0,1,0)
+            bottom_right(1,0,0)
+            
+            time.sleep(delay2)
+            
+
+        if i=='br':
+            top_right(1,0,0)
+            top_left(1,0,0)
+            bottom_left(1,0,0)
+            bottom_right(0,0,1)
+            
+            time.sleep(delay1)
+            
+            top_right(1,0,0)
+            top_left(1,0,0)
+            bottom_left(1,0,0)
+            bottom_right(0,1,0)
+            
+            time.sleep(delay2)
+            
+        time.sleep(2)
+        
+
+    pygame.display.update()
